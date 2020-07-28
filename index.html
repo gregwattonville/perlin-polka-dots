@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perlin Polka Dots</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <style>
+        main {
+            width: 100%;
+        }
+
+        canvas {
+            display: none;
+        }
+
+        #wrapper {
+            overflow-x: hidden;
+            display: flex;
+        }
+
+        .test {
+            position: fixed;
+            top: 0;
+            left: 0;
+            min-height: 100vh;
+            visibility: hidden;
+            width: 0;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            -webkit-transition: width .25s ease-in-out;
+            -moz-transition: width .25s ease-in-out;
+            -o-transition: width .25s ease-in-out;
+            transition: width .25s ease-in-out;
+        }
+
+        .test-show {
+            visibility: visible;
+            width: 50%;
+        }
+
+        @media (min-width: 1200px) {
+            main {
+                width: 75%;
+            }
+            .test {
+                position: relative;
+                display: flex;
+                visibility: visible;
+                flex: 0 0 auto;
+                width: 25%;
+            }
+        }
+
+        @media (min-width: 1400px) {
+            main {
+                width: 80%;
+            }
+            .test {
+                width: 20%;
+            }
+        }
+    </style>
+    <script src="assets/vendor/p5.js"></script>
+</head>
+<body>
+    <div id="wrapper">
+    <!-- Sidebar -->
+    <div class="bg-light border-right test" id="sidebar-wrapper">
+        <div class="container-fluid">
+            <h3 class="d-none d-xl-block mt-2">Perlin Polka Dots</h3>
+            <div class="mt-2 mb-3">
+                <label for="aspectRatioSelect" class="form-label">Aspect Ratio <small class="text-muted">This will clear the canvas</small></label>
+                <select id="js-select-aspectRatio" class="form-select" aria-label="Default select example">
+                    <option value="1.6" selected>1.6:1</option>
+                    <option value="1.25">1.25:1</option>
+                    <option value="1">1:1</option>
+                </select>
+            </div>
+            <div class="row g-3 align-items-center mb-3">
+                <div class="col-auto">
+                    <label for="inputColorInput" class="form-label">Color picker</label>
+                </div>
+                <div class="col-auto" style="min-width: 64px;">
+                    <input type="color" class="form-control form-control-color" id="js-input-color" value="#2BBBAD" title="Choose your color">
+                </div>
+            </div>
+
+
+
+
+            <p>
+                <button class="btn btn-sm btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseDots" aria-expanded="false" aria-controls="collapseDots">
+                    Dots
+                </button>
+            </p>
+            <div class="collapse show" id="collapseDots">
+                <div class="row g-3 align-items-center mb-3">
+                    <div class="col-auto">
+                    <label for="inputSegments" class="col-form-label">Segments</label>
+                    </div>
+                    <div class="col-auto">
+                    <input type="number" id="js-input-segments" class="form-control" aria-describedby="inputSegments" min="3" max="500" value="50">
+                    </div>
+                </div>
+                <div class="row g-3 align-items-center mb-3">
+                    <div class="col-auto">
+                    <label for="minSize" class="col-form-label">Min Size</label>
+                    </div>
+                    <div class="col-auto">
+                    <input type="number" id="js-input-minSize" class="form-control" aria-describedby="inputMinSize" min="1" max="1000" value="10">
+                    </div>
+                </div>
+                <div class="row g-3 align-items-center mb-3">
+                    <div class="col-auto">
+                    <label for="varianceSize" class="col-form-label">Variance</label>
+                    </div>
+                    <div class="col-auto">
+                    <input type="number" id="js-input-maxSize" class="form-control" aria-describedby="inputMaxSize" min="1" max="1000" value="10">
+                    </div>
+                </div>
+                <div class="row g-3 align-items-center mb-3">
+                    <div class="col-auto">
+                    <label for="varianceSize" class="col-form-label">Direction</label>
+                    </div>
+                    <div class="col-auto">
+                        <select id="js-select-direction" class="form-select" aria-label="Default select example">
+                            <option value="0" selected>Random</option>
+                            <option value="-1">CW</option>
+                            <option value="1">CCW</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+
+
+
+
+            <div class="btn-group mb-3" role="group" aria-label="Undo Redo Button Group">
+                <button type="button" class="btn btn-outline-secondary" id="js-btn-undo">Undo</button>
+                <button type="button" class="btn btn-outline-secondary" id="js-btn-redo">Redo</button>
+            </div>
+            <div class="mb-3">
+                <button type="button" class="btn btn-outline-primary" id="js-btn-save">Save</button>
+            </div>
+
+    </div>
+    </div>
+    <main>
+        <div class="container-fluid">
+            <div class="row d-xl-none pt-1">
+                <h3>Perlin Polka Dots <button class="btn btn-primary float-right" id="menu-toggle" type="button" aria-label="Toggle navigation">menu</button></h3>
+            </div>
+            <div class="row">
+                    <div class="col-12 p-2">
+                        <div id="sketch-wrapper">
+                            <div id="sketch">
+                                <svg id="js-svg" xmlns="http://www.w3.org/2000/svg" style="outline: 2px solid gray;"></svg>
+                            </div>
+                        </div>
+                    </div>
+
+            </div>
+
+        </div> 
+    </main>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+
+    <script src="assets/scripts/PerlinDotSVG.js"></script>
+    <script src="assets/scripts/menuFunctions.js"></script>
+    <script src="assets/scripts/perlinDotsScript.js"></script>
+    <!-- Menu Toggle Script -->
+    <script>
+        const wrapper = document.getElementById("sidebar-wrapper");
+        document.getElementById("menu-toggle").onclick = (e) => { 
+            wrapper.classList.toggle("test-show");
+        };
+    </script>
+</body>
+</html>
