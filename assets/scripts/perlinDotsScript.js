@@ -4,7 +4,9 @@
 // 1, 48x48 Resolution of 4800x4800
 
 //const _p5 = new p5();
-const _svg = document.querySelector('svg')
+const _svg = document.getElementById('js-svg');
+const _topHeader = document.getElementById('js-div-topHeader');
+const _menuBreakpoint = 1200;
 const _pt = _svg.createSVGPoint();  // Created once for document
 let _svgDotsHtml = '';
 let _svgDotsHtmlList = [];
@@ -17,22 +19,22 @@ const _perlinDot = new PerlinDotSVG();
 let _circleColor = document.getElementById("js-input-color").value
 
 
-const setupSvgCanvas = (aspectRatio) => {
+const setupSvgCanvas = (breakpoint, aspectRatio) => {
     let svgWidthPercent = _svgAspectRatio;
     const divSketchWidth = document.getElementById("sketch-wrapper").offsetWidth;
     const intViewportHeight = window.innerHeight;
     
     if (aspectRatio === '1') {
         _svgAspectRatio = aspectRatio;
-        svgWidthPercent = configSvgDimensions(divSketchWidth, intViewportHeight, 1)
+        svgWidthPercent = configSvgDimensions(divSketchWidth, intViewportHeight, breakpoint, 1)
         _svg.setAttribute("viewBox", "0 0 1280 1280"); 
     } else if (aspectRatio === '1.25') {
         _svgAspectRatio = aspectRatio;
-        svgWidthPercent = configSvgDimensions(divSketchWidth, intViewportHeight, 1.25)
+        svgWidthPercent = configSvgDimensions(divSketchWidth, intViewportHeight, breakpoint, 1.25)
         _svg.setAttribute("viewBox", "0 0 1280 1024"); 
     } else if (aspectRatio === '1.6') {
         _svgAspectRatio = aspectRatio;
-        svgWidthPercent = configSvgDimensions(divSketchWidth, intViewportHeight, 1.6)
+        svgWidthPercent = configSvgDimensions(divSketchWidth, intViewportHeight, breakpoint, 1.6)
         _svg.setAttribute("viewBox", "0 0 1280 800"); 
     } else {
         return false;
@@ -41,13 +43,16 @@ const setupSvgCanvas = (aspectRatio) => {
     _svg.setAttribute("width", `${svgWidthPercent}%`);
 }
 
-const configSvgDimensions = (width, height, aspectRatio) => {
-    
+const configSvgDimensions = (width, height, breakpoint, aspectRatio) => {
+    let currentHeight = height;
+    if(currentHeight < breakpoint) {
+        currentHeight = currentHeight - _topHeader.offsetHeight-5;
+    } 
     // height > width, return 100%
-    if (height >= width) {
+    if (currentHeight >= width) {
         return 100;
     } else {
-        const widthWeNeed = height * _svgAspectRatio;
+        const widthWeNeed = currentHeight * aspectRatio;
         if (widthWeNeed >= width ) {
             return 100;
         } else {
@@ -102,6 +107,6 @@ document.getElementById("js-svg").onclick = addPerlinCircle;
 document.getElementById("js-btn-undo").onclick = (e) => { undoDraw(_svgDotsHtmlList, _svgDotsHtmlListUndo, drawSvg); };
 document.getElementById("js-btn-redo").onclick = (e) => { redoDraw(_svgDotsHtmlList, _svgDotsHtmlListUndo, drawSvg); };
 document.getElementById("js-btn-save").onclick = (e) => { saveSVG(_svg); };
-document.getElementById("js-select-aspectRatio").onchange = (e) => { setupSvgCanvas(e.target.value); };
+document.getElementById("js-select-aspectRatio").onchange = (e) => { setupSvgCanvas(_menuBreakpoint, e.target.value); };
 
-setupSvgCanvas(_svgAspectRatio);
+setupSvgCanvas(_menuBreakpoint, _svgAspectRatio);

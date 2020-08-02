@@ -6,6 +6,10 @@
     <title>Perlin Polka Dots</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
     <style>
+
+        body {
+            overflow: hidden;
+        }
         main {
             width: 100%;
         }
@@ -15,13 +19,14 @@
         }
 
         #wrapper {
-            overflow-x: hidden;
+            overflow: hidden;
             display: flex;
         }
 
-        .test {
+        .side-menu {
             position: fixed;
             top: 0;
+            bottom: 0;
             left: 0;
             min-height: 100vh;
             visibility: hidden;
@@ -34,16 +39,16 @@
             transition: width .25s ease-in-out;
         }
 
-        .test-show {
+        .side-menu-show {
             visibility: visible;
-            width: 50%;
+            width: 80%;
         }
 
         @media (min-width: 1200px) {
             main {
                 width: 75%;
             }
-            .test {
+            .side-menu {
                 position: relative;
                 display: flex;
                 visibility: visible;
@@ -56,7 +61,7 @@
             main {
                 width: 80%;
             }
-            .test {
+            .side-menu {
                 width: 20%;
             }
         }
@@ -66,11 +71,11 @@
 <body>
     <div id="wrapper">
     <!-- Sidebar -->
-    <div class="bg-light border-right test" id="sidebar-wrapper">
+    <div class="bg-light border-right side-menu" id="sidebar-wrapper">
         <div class="container-fluid">
             <h3 class="d-none d-xl-block mt-2">Perlin Polka Dots</h3>
             <div class="mt-2 mb-3">
-                <label for="aspectRatioSelect" class="form-label">Aspect Ratio <small class="text-muted">This will clear the canvas</small></label>
+                <label for="aspectRatioSelect" class="form-label">Aspect Ratio</label>
                 <select id="js-select-aspectRatio" class="form-select" aria-label="Default select example">
                     <option value="1.6" selected>1.6:1</option>
                     <option value="1.25">1.25:1</option>
@@ -149,8 +154,8 @@
     </div>
     <main>
         <div class="container-fluid">
-            <div class="row d-xl-none pt-1">
-                <h3>Perlin Polka Dots <button class="btn btn-primary float-right" id="menu-toggle" type="button" aria-label="Toggle navigation">menu</button></h3>
+            <div class="row d-xl-none pt-1" id="js-div-topHeader">
+                <h3>Perlin Polka Dots <button class="btn btn-sm btn-primary float-right" id="menu-toggle" type="button" aria-label="Toggle navigation">menu</button></h3>
             </div>
             <div class="row">
                     <div class="col-12 p-2">
@@ -177,7 +182,7 @@
     <script>
         const wrapper = document.getElementById("sidebar-wrapper");
         document.getElementById("menu-toggle").onclick = (e) => { 
-            wrapper.classList.toggle("test-show");
+            wrapper.classList.toggle("side-menu-show");
         };
     </script>
 </body>
