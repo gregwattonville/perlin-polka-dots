@@ -70,7 +70,10 @@ let _htmlInputs = {};
 _htmlInputs.drawButton = 'js-btn-draw';
 
 
-function drawSvg(svgHtml) {
+function drawSvg(svgHtml, updateGlobalHtml = false) {
+    if(updateGlobalHtml) {
+        _svgDotsHtml = svgHtml
+    }
     _svg.innerHTML = svgHtml;
 }
 

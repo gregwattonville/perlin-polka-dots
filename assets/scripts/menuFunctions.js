@@ -1,7 +1,7 @@
 function undoDraw(svgHtmlList, svgHtmlListUndo, callback) {
     if (svgHtmlList.length){
         svgHtmlListUndo.push(svgHtmlList.pop());
-        callback(svgHtmlList.join(''));
+        callback(svgHtmlList.join(''), true);
     } else {
         return false;
     }
@@ -10,7 +10,7 @@ function undoDraw(svgHtmlList, svgHtmlListUndo, callback) {
 function redoDraw(svgHtmlList, svgHtmlListUndo, callback) {
     if (svgHtmlListUndo.length){
         svgHtmlList.push(svgHtmlListUndo.pop());
-        callback(svgHtmlList.join(''));
+        callback(svgHtmlList.join(''), true);
     } else {
         return false;
     }
