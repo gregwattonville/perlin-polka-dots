@@ -32,7 +32,8 @@
             visibility: hidden;
             width: 0;
             overflow-x: hidden;
-            overflow-y: scroll;
+            overflow-y: auto;
+            min-height: 0px;
             -webkit-transition: width .25s ease-in-out;
             -moz-transition: width .25s ease-in-out;
             -o-transition: width .25s ease-in-out;
@@ -51,6 +52,8 @@
             .side-menu {
                 position: relative;
                 display: flex;
+                height: 0;
+                min-height: 100vh;
                 visibility: visible;
                 flex: 0 0 auto;
                 width: 25%;
@@ -95,11 +98,49 @@
 
 
             <p>
+                <button class="btn btn-sm btn-outline-success" type="button" data-toggle="collapse" data-target="#collapseCreator" aria-expanded="false" aria-controls="collapseCreator">
+                    Creator
+                </button>
                 <button class="btn btn-sm btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseDots" aria-expanded="false" aria-controls="collapseDots">
                     Dots
                 </button>
+                <button class="btn btn-sm btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseColors" aria-expanded="false" aria-controls="collapseColors">
+                    Colors
+                </button>
             </p>
-            <div class="collapse show" id="collapseDots">
+
+
+            <div class="collapse show mb-3" id="collapseCreator">
+                <div class="row g-3 align-items-center mb-3">
+                    <div class="col-auto">
+                        <label for="inputRows" class="col-form-label">Rows:</label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="number" id="js-input-rows" class="form-control" aria-describedby="inputRows" min="1" max="100" value="10">
+                      </div>
+                </div>
+                <div class="row g-3 align-items-center mb-3">
+                    <div class="col-auto">
+                        <label for="inputRows" class="col-form-label">Columns:</label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="number" id="js-input-columns" class="form-control" aria-describedby="inputColumns" min="1" max="100" value="10">
+                      </div>
+                </div>
+                <div class="row g-3 align-items-center mb-3">
+                    <div class="col-auto">
+                        <label for="inputPadding" class="col-form-label">Padding:</label>
+                      </div>
+                      <div class="col-auto">
+                        <input type="number" id="js-input-padding" class="form-control" aria-describedby="inputPadding" min="1" max="100" value="20">
+                      </div>
+                </div>
+                <button type="button" class="btn btn-outline-success" id="js-btn-create">Create</button>
+            </div>
+
+
+            
+            <div class="collapse mb-3" id="collapseDots">
                 <div class="row g-3 align-items-center mb-3">
                     <div class="col-auto">
                     <label for="inputSegments" class="col-form-label">Segments</label>
@@ -137,6 +178,18 @@
                     </div>
                 </div>
             </div>
+
+
+            <div class="collapse mb-3" id="collapseColors">
+                <div class="row g-3 align-items-center mb-3">
+                    <label for="customRange2" class="form-label">Number of Colors: <span id="js-span-selectedColorsRange"></span> </label>
+                    <input type="range" class="form-range" min="1" max="20" id="js-range-numberOfColors">
+                </div>
+                <div class="row">
+                    <div class="col-8 border p-3" id="js-div-colors" style="overflow-x: hidden; overflow-y: scroll; height: 20rem;">
+                    </div>
+                </div>
+            </div>
             
 
 
@@ -147,7 +200,7 @@
                 <button type="button" class="btn btn-outline-secondary" id="js-btn-redo">Redo</button>
             </div>
             <div class="mb-3">
-                <button type="button" class="btn btn-outline-primary" id="js-btn-save">Save</button>
+                <button type="button" class="btn btn-outline-primary" id="js-btn-save">Save SVG</button>
             </div>
 
     </div>
