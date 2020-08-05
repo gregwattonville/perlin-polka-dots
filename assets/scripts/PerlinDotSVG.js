@@ -1,5 +1,5 @@
 class PerlinDotSVG extends p5 {
-    constructor(segments = 50, noiseScale = 0.5, timeScale = 0.01, timeDiff = 1000, minSize = 10, maxSize = 10, fillColor = '#808080') {
+    constructor(segments = 50, noiseScale = 0.5, timeScale = 0.01, timeDiff = 1000, minSize = 10, maxSize = 10, fillColor = '#808080', style = 0) {
         super();
         this.segments = segments;
         this.noiseScale = noiseScale;
@@ -8,6 +8,8 @@ class PerlinDotSVG extends p5 {
         this.minSize = minSize;
         this.maxSize = maxSize;
         this.fillColor = fillColor;
+        this.style = style;
+        this.styles = ['filled', 'outline', 'star'];
     }
 
     render(x, y, setDirection = 0) {
@@ -32,7 +34,12 @@ class PerlinDotSVG extends p5 {
                 vertexList.push(`${vertexX},${vertexY}`);
         }
 
-        return `<polygon points="${vertexList.join(' ')}" fill="${this.fillColor}" />`;
+        if (this.styles[this.style] == 'outline') {
+            return `<polygon points="${vertexList.join(' ')}" fill="none" stroke="${this.fillColor}" stroke-width="1.5" />`;
+        } else {
+            return `<polygon points="${vertexList.join(' ')}" fill="${this.fillColor}" />`;
+        }
+        
 
     }
 

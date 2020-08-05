@@ -76,15 +76,36 @@
     <!-- Sidebar -->
     <div class="bg-light border-right side-menu" id="sidebar-wrapper">
         <div class="container-fluid">
-            <h3 class="d-none d-xl-block mt-2">Perlin Polka Dots</h3>
-            <div class="mt-2 mb-3">
-                <label for="aspectRatioSelect" class="form-label">Aspect Ratio</label>
-                <select id="js-select-aspectRatio" class="form-select" aria-label="Default select example">
-                    <option value="1.6" selected>1.6:1</option>
-                    <option value="1.25">1.25:1</option>
-                    <option value="1">1:1</option>
-                </select>
+            <h3 class="d-none d-xl-block mt-2">Perlin Polka Dots
+                <button type="button" class="btn btn-outline-danger float-right" id="js-btn-clear">Clear</button>
+            </h3>
+
+            <div class="row g-3 align-items-center mt-1 mb-3">
+                <div class="col-auto">
+                    <label for="aspectRatioSelect" class="form-label">Aspect Ratio</label>
+                </div>
+                <div class="col-auto">
+                    <select id="js-select-aspectRatio" class="form-select" aria-label="Canvas aspect ratio">
+                        <option value="1.6" selected>1.6:1</option>
+                        <option value="1.25">1.25:1</option>
+                        <option value="1">1:1</option>
+                    </select>
+                </div>
             </div>
+
+            <div class="row g-3 align-items-center mb-3">
+                <div class="col-auto">
+                    <label for="dotStyleSelect" class="form-label">Dot Style</label>
+                </div>
+                <div class="col-auto">
+                    <select id="js-select-dotStyle" class="form-select" aria-label="Dot style">
+                        <option value="0" selected>Filled</option>
+                        <option value="1">Outline</option>
+                        <option value="2" disabled>Starburst</option>
+                    </select>
+                </div>
+            </div>
+
             <div class="row g-3 align-items-center mb-3">
                 <div class="col-auto">
                     <label for="inputColorInput" class="form-label">Color picker</label>
@@ -135,7 +156,10 @@
                         <input type="number" id="js-input-padding" class="form-control" aria-describedby="inputPadding" min="1" max="100" value="20">
                       </div>
                 </div>
-                <button type="button" class="btn btn-outline-success" id="js-btn-create">Create</button>
+                <div class="btn-group mb-3" role="group" aria-label="Undo Redo Button Group">
+                    <button type="button" class="btn btn-outline-success" id="js-btn-create">Create</button>
+                    <button type="button" class="btn btn-outline-success" id="js-btn-create2">Create Random</button>
+                </div>
             </div>
 
 
@@ -191,9 +215,6 @@
                 </div>
             </div>
             
-
-
-
 
             <div class="btn-group mb-3" role="group" aria-label="Undo Redo Button Group">
                 <button type="button" class="btn btn-outline-secondary" id="js-btn-undo">Undo</button>
