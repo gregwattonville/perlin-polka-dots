@@ -18,6 +18,7 @@ let _svgWidth = null;
 let _svgHeight = null;
 
 let _creatorOptions = {};
+let _numberOfColors = null;
 let _colorCodes = ['#e6194b', '#3cb44b', '#ffe119', '#4363d8', '#f58231', '#911eb4', '#46f0f0', '#f032e6', '#bcf60c', '#fabebe', '#008080', '#e6beff', '#9a6324', '#fffac8', '#800000', '#aaffc3', '#808000', '#ffd8b1', '#000075', '#808080', '#000000', '#F5F5F5'];
 const _perlinDot = new PerlinDotSVG();
 
@@ -107,7 +108,9 @@ const updateDotOptions = () => {
 }
 
 const updateColorOptions = () => {
-    
+    for (let i = 0; i < _numberOfColors; i++) {
+        _colorCodes[i] = document.getElementById(`js-input-color-${i}`).value;
+    }
 }
 
 
@@ -128,6 +131,7 @@ function drawSvg(svgHtml, updateGlobalHtml = false) {
 
 
 const updateColors = (rangeVal) => {
+    _numberOfColors = rangeVal;
     _spanSelectedColorRange.innerHTML = rangeVal;
     const aColor = '#e6194b';
     let colorsHtml = '';
@@ -173,6 +177,7 @@ const createDots = () => {
     updateGeneralOptions();
     updateDotOptions();  
     updateCreatorOptions();
+    updateColorOptions();
 
     const centerShiftX = Math.round( (_svgWidth - 2*_creatorOptions.padding)/_creatorOptions.numberOfColumns );
     const centerShiftY = Math.round( (_svgHeight - 2*_creatorOptions.padding)/_creatorOptions.numberOfRows );
@@ -190,7 +195,7 @@ const createDots = () => {
         
         //print(CenterX);
         //print("\r\n");
-        let randomColorIndex = getRandomInt(_colorCodes.length-1);
+        let randomColorIndex = getRandomInt(_numberOfColors);
         _perlinDot.fillColor = _colorCodes[randomColorIndex]; 
         for (let j = 0; j < _creatorOptions.numberOfColumns; j++) {
             const dotHtml = _perlinDot.render(centerX, centerY, _perlinDot.direction);
@@ -212,6 +217,7 @@ const createDotsRandom = () => {
     updateGeneralOptions();
     updateDotOptions();  
     updateCreatorOptions();  
+    updateColorOptions();
 
     const centerShiftX = Math.round( (_svgWidth - 2*_creatorOptions.padding)/_creatorOptions.numberOfColumns );
     const centerShiftY = Math.round( (_svgHeight - 2*_creatorOptions.padding)/_creatorOptions.numberOfRows );
@@ -239,7 +245,7 @@ const createDotsRandom = () => {
         centerY = getRandomIntInclusive( minY, maxY );
         //print(CenterX);
         //print("\r\n");
-        let randomColorIndex = getRandomInt(_colorCodes.length-1);
+        let randomColorIndex = getRandomInt(_numberOfColors);
         _perlinDot.fillColor = _colorCodes[randomColorIndex]; 
         for (let j = 0; j < _creatorOptions.numberOfColumns; j++) { 
            //centerX += centerShiftX + parseInt( Math.round( getRandomIntInclusive(centerShiftX*shiftPercent*-1, centerShiftX*shiftPercent) ) - paddingAdjustment) ;
@@ -254,6 +260,46 @@ const createDotsRandom = () => {
             perlinDotsHtml += dotHtml;
         }
         
+    }
+    drawSvg(perlinDotsHtml , true);
+
+};
+
+const createDotsPerlin = () => {
+
+    updateGeneralOptions();
+    updateDotOptions();  
+    updateCreatorOptions();
+    updateColorOptions();
+
+    const centerShiftX = Math.round( (_svgWidth - 2*_creatorOptions.padding)/_creatorOptions.numberOfColumns );
+    const centerShiftY = Math.round( (_svgHeight - 2*_creatorOptions.padding)/_creatorOptions.numberOfRows );
+  
+    let count = 0;
+    const shiftPercent = 0.07;
+    const paddingAdjustment = _creatorOptions.padding/(_creatorOptions.numberOfColumns - 1);
+    let centerX = Math.round( _creatorOptions.padding+centerShiftX/2 + random(centerShiftX*shiftPercent*-1, centerShiftX*shiftPercent) );
+    let centerY = Math.round( _creatorOptions.padding+centerShiftY/2 + random(centerShiftY*shiftPercent*-1, centerShiftY*shiftPercent) );
+
+
+    let perlinDotsHtml = '';
+
+    for (let i = 0; i < _creatorOptions.numberOfRows; i++) {
+        
+        //print(CenterX);
+        //print("\r\n");
+        let randomColorIndex = getRandomInt(_numberOfColors);
+        _perlinDot.fillColor = _colorCodes[randomColorIndex]; 
+        for (let j = 0; j < _creatorOptions.numberOfColumns; j++) {
+            const n = noise(count);
+            const dotHtml = _perlinDot.render(centerX, centerY+25*n-25, _perlinDot.direction);
+            _svgDotsHtmlList.push(dotHtml);
+            perlinDotsHtml += dotHtml;
+            count += 1;
+            centerX += centerShiftX + parseInt( Math.round( random(centerShiftX*shiftPercent*-1, centerShiftX*shiftPercent) ) - paddingAdjustment) ;
+        }
+        centerY += centerShiftY + parseInt( Math.round( random(centerShiftY*shiftPercent*-1, centerShiftY*shiftPercent) ));
+        centerX = parseInt( Math.round( _creatorOptions.padding + centerShiftX/2 + random(centerShiftX*shiftPercent*-1, centerShiftX*shiftPercent) ));
     }
     drawSvg(perlinDotsHtml , true);
 
@@ -276,6 +322,7 @@ _htmlInputs.rangeNumberOfColors.oninput = (e) => { updateColors(e.target.value);
 
 document.getElementById("js-btn-create").onclick = createDots;
 document.getElementById("js-btn-create2").onclick = createDotsRandom;
+document.getElementById("js-btn-create3").onclick = createDotsPerlin;
 
 
 setupSvgCanvas(_menuBreakpoint, _svgAspectRatio);
