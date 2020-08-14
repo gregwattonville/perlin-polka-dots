@@ -39,8 +39,6 @@ class PerlinDotSVG extends p5 {
         } else {
             return `<polygon points="${vertexList.join(' ')}" fill="${this.fillColor}" />`;
         }
-        
-
     }
 
     findNextCoords(currentSegment, numberOfAngles,  minRad, maxRad, time, direction) {
@@ -64,6 +62,14 @@ class PerlinDotSVG extends p5 {
 
     getRandomInt(max) {
         return Math.floor(Math.random() * Math.floor(max));
+    }
+
+    calcSegments(size) {
+        this.segments = 0.0000105939 * Math.pow(size, 3) - 0.00834257 * Math.pow(size, 2) + 2.48002 * size + 24.7762;
+    }
+
+    calcVariance(size) {
+        this.maxSize = 0.00000846098 * Math.pow(size, 3) - 0.00457477 * Math.pow(size, 2) + 0.845634 * size + 1.99935;
     }
 
 }

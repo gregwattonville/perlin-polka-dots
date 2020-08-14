@@ -73,159 +73,181 @@
 </head>
 <body>
     <div id="wrapper">
-    <!-- Sidebar -->
-    <div class="bg-light border-right side-menu" id="sidebar-wrapper">
-        <div class="container-fluid">
-            <h3 class="d-none d-xl-block mt-2">Perlin Polka Dots
-                <button type="button" class="btn btn-outline-danger float-right" id="js-btn-clear">Clear</button>
-            </h3>
+        <!-- Sidebar -->
+        <div class="bg-light border-right side-menu" id="sidebar-wrapper">
+            <div class="container-fluid">
+                <h3 class="d-none d-xl-block mt-2">Perlin Polka Dots
+                    <button type="button" class="btn btn-outline-danger float-right" id="js-btn-clear">Clear</button>
+                </h3>
 
-            <div class="row g-3 align-items-center mt-1 mb-3">
-                <div class="col-auto">
-                    <label for="aspectRatioSelect" class="form-label">Aspect Ratio</label>
-                </div>
-                <div class="col-auto">
-                    <select id="js-select-aspectRatio" class="form-select" aria-label="Canvas aspect ratio">
-                        <option value="1.6" selected>1.6:1</option>
-                        <option value="1.25">1.25:1</option>
-                        <option value="1">1:1</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="row g-3 align-items-center mb-3">
-                <div class="col-auto">
-                    <label for="dotStyleSelect" class="form-label">Dot Style</label>
-                </div>
-                <div class="col-auto">
-                    <select id="js-select-dotStyle" class="form-select" aria-label="Dot style">
-                        <option value="0" selected>Filled</option>
-                        <option value="1">Outline</option>
-                        <option value="2" disabled>Starburst</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="row g-3 align-items-center mb-3">
-                <div class="col-auto">
-                    <label for="inputColorInput" class="form-label">Color picker</label>
-                </div>
-                <div class="col-auto" style="min-width: 64px;">
-                    <input type="color" class="form-control form-control-color" id="js-input-color" value="#2BBBAD" title="Choose your color">
-                </div>
-            </div>
-
-
-
-
-            <p>
-                <button class="btn btn-sm btn-outline-success" type="button" data-toggle="collapse" data-target="#collapseCreator" aria-expanded="false" aria-controls="collapseCreator">
-                    Creator
-                </button>
-                <button class="btn btn-sm btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseDots" aria-expanded="false" aria-controls="collapseDots">
-                    Dots
-                </button>
-                <button class="btn btn-sm btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseColors" aria-expanded="false" aria-controls="collapseColors">
-                    Colors
-                </button>
-            </p>
-
-
-            <div class="collapse show mb-3" id="collapseCreator">
-                <div class="row g-3 align-items-center mb-3">
+                <div class="row g-3 align-items-center mt-1 mb-3">
                     <div class="col-auto">
-                        <label for="inputRows" class="col-form-label">Rows:</label>
-                      </div>
-                      <div class="col-auto">
-                        <input type="number" id="js-input-rows" class="form-control" aria-describedby="inputRows" min="1" max="100" value="10">
-                      </div>
-                </div>
-                <div class="row g-3 align-items-center mb-3">
-                    <div class="col-auto">
-                        <label for="inputRows" class="col-form-label">Columns:</label>
-                      </div>
-                      <div class="col-auto">
-                        <input type="number" id="js-input-columns" class="form-control" aria-describedby="inputColumns" min="1" max="100" value="10">
-                      </div>
-                </div>
-                <div class="row g-3 align-items-center mb-3">
-                    <div class="col-auto">
-                        <label for="inputPadding" class="col-form-label">Padding:</label>
-                      </div>
-                      <div class="col-auto">
-                        <input type="number" id="js-input-padding" class="form-control" aria-describedby="inputPadding" min="1" max="100" value="20">
-                      </div>
-                </div>
-                <div class="btn-group mb-3" role="group" aria-label="Undo Redo Button Group">
-                    <button type="button" class="btn btn-outline-success" id="js-btn-create">Create</button>
-                    <button type="button" class="btn btn-outline-success" id="js-btn-create2">Create Random</button>
-                    <button type="button" class="btn btn-outline-success" id="js-btn-create3">Create 3</button>
-                </div>
-            </div>
-
-
-            
-            <div class="collapse mb-3" id="collapseDots">
-                <div class="row g-3 align-items-center mb-3">
-                    <div class="col-auto">
-                    <label for="inputSegments" class="col-form-label">Segments</label>
+                        <label for="aspectRatioSelect" class="form-label">Aspect Ratio</label>
                     </div>
                     <div class="col-auto">
-                    <input type="number" id="js-input-segments" class="form-control" aria-describedby="inputSegments" min="3" max="500" value="50">
-                    </div>
-                </div>
-                <div class="row g-3 align-items-center mb-3">
-                    <div class="col-auto">
-                    <label for="minSize" class="col-form-label">Min Size</label>
-                    </div>
-                    <div class="col-auto">
-                    <input type="number" id="js-input-minSize" class="form-control" aria-describedby="inputMinSize" min="1" max="1000" value="10">
-                    </div>
-                </div>
-                <div class="row g-3 align-items-center mb-3">
-                    <div class="col-auto">
-                    <label for="varianceSize" class="col-form-label">Variance</label>
-                    </div>
-                    <div class="col-auto">
-                    <input type="number" id="js-input-maxSize" class="form-control" aria-describedby="inputMaxSize" min="1" max="1000" value="10">
-                    </div>
-                </div>
-                <div class="row g-3 align-items-center mb-3">
-                    <div class="col-auto">
-                    <label for="varianceSize" class="col-form-label">Direction</label>
-                    </div>
-                    <div class="col-auto">
-                        <select id="js-select-direction" class="form-select" aria-label="Default select example">
-                            <option value="0" selected>Random</option>
-                            <option value="-1">CW</option>
-                            <option value="1">CCW</option>
+                        <select id="js-select-aspectRatio" class="form-select" aria-label="Canvas aspect ratio">
+                            <option value="1.6" selected>1.6:1</option>
+                            <option value="1.25">1.25:1</option>
+                            <option value="1">1:1</option>
                         </select>
                     </div>
                 </div>
-            </div>
 
-
-            <div class="collapse mb-3" id="collapseColors">
                 <div class="row g-3 align-items-center mb-3">
-                    <label for="customRange2" class="form-label">Number of Colors: <span id="js-span-selectedColorsRange"></span> </label>
-                    <input type="range" class="form-range" min="1" max="20" id="js-range-numberOfColors">
-                </div>
-                <div class="row">
-                    <div class="col-8 border p-3" id="js-div-colors" style="overflow-x: hidden; overflow-y: scroll; height: 20rem;">
+                    <div class="col-auto">
+                        <label for="dotStyleSelect" class="form-label">Dot Style</label>
+                    </div>
+                    <div class="col-auto">
+                        <select id="js-select-dotStyle" class="form-select" aria-label="Dot style">
+                            <option value="0" selected>Filled</option>
+                            <option value="1">Outline</option>
+                            <option value="2" disabled>Starburst</option>
+                        </select>
                     </div>
                 </div>
-            </div>
-            
 
-            <div class="btn-group mb-3" role="group" aria-label="Undo Redo Button Group">
-                <button type="button" class="btn btn-outline-secondary" id="js-btn-undo">Undo</button>
-                <button type="button" class="btn btn-outline-secondary" id="js-btn-redo">Redo</button>
-            </div>
-            <div class="mb-3">
-                <button type="button" class="btn btn-outline-primary" id="js-btn-save">Save SVG</button>
-            </div>
+                <div class="row g-3 align-items-center mb-3">
+                    <div class="col-auto">
+                        <label for="inputColorInput" class="form-label">Color picker</label>
+                    </div>
+                    <div class="col-auto" style="min-width: 64px;">
+                        <input type="color" class="form-control form-control-color" id="js-input-color" value="#2BBBAD" title="Choose your color">
+                    </div>
+                </div>
 
-    </div>
+
+
+
+                <p>
+                    <button class="btn btn-sm btn-outline-success" type="button" data-toggle="collapse" data-target="#collapseCreator" aria-expanded="false" aria-controls="collapseCreator">
+                        Creator
+                    </button>
+                    <button class="btn btn-sm btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseDots" aria-expanded="false" aria-controls="collapseDots">
+                        Mouse
+                    </button>
+                    <button class="btn btn-sm btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseColors" aria-expanded="false" aria-controls="collapseColors">
+                        Colors
+                    </button>
+                </p>
+
+
+                <div class="collapse show mb-3" id="collapseCreator">
+                    <div class="row g-3 align-items-center mb-3">
+                        <div class="col-auto">
+                        <label for="size" class="col-form-label">Size</label>
+                        </div>
+                        <div class="col-auto">
+                        <input type="number" id="js-input-creator-size" class="form-control" aria-describedby="inputMinSize" min="1" max="400" value="10">
+                        </div>
+                    </div>
+                    <div class="row g-3 align-items-center mb-3">
+                        <div class="col-auto">
+                            <label for="inputRows" class="col-form-label">Rows:</label>
+                        </div>
+                        <div class="col-auto">
+                            <input type="number" id="js-input-rows" class="form-control" aria-describedby="inputRows" min="1" max="100" value="12">
+                        </div>
+                    </div>
+                    <div class="row g-3 align-items-center mb-3">
+                        <div class="col-auto">
+                            <label for="inputRows" class="col-form-label">Columns:</label>
+                        </div>
+                        <div class="col-auto">
+                            <input type="number" id="js-input-columns" class="form-control" aria-describedby="inputColumns" min="1" max="100" value="15">
+                        </div>
+                    </div>
+                    <div class="row g-3 align-items-center mb-3">
+                        <div class="col-auto">
+                            <label for="inputPadding" class="col-form-label">Padding:</label>
+                        </div>
+                        <div class="col-auto">
+                            <input type="number" id="js-input-padding" class="form-control" aria-describedby="inputPadding" min="1" max="100" value="20">
+                        </div>
+                    </div>
+                    <div class="row g-3 align-items-center mb-3">
+                        <label for="customRange2" class="form-label">More Random Sizes: <span id="js-span-moreRandomSizes"></span> </label>
+                        <input type="range" class="form-range" min="0" max="100" value="4" id="js-range-moreRandomSizes">
+                    </div>
+                    <div class="row g-3 align-items-center mb-3">
+                        <label for="customRange2" class="form-label">More Random Dots: <span id="js-span-moreRandomDots"></span> </label>
+                        <input type="range" class="form-range" min="0" max="100" value="2" id="js-range-moreRandomDots">
+                    </div>
+                    <div class="mb-3">
+                        <button type="button" class="btn btn-sm btn-outline-warning" id="js-btn-create">Create Basic</button>
+                        <button type="button" class="btn btn-sm btn-outline-warning" id="js-btn-create2">Create Random</button>
+                        <button type="button" class="btn btn-sm btn-outline-success" id="js-btn-create3">Create Perlin</button>
+                    </div>
+                </div>
+
+
+                
+                <div class="collapse mb-3" id="collapseDots">
+                    <div class="row g-3 align-items-center mb-3">
+                        <div class="col-auto">
+                        <label for="inputSegments" class="col-form-label">Segments</label>
+                        </div>
+                        <div class="col-auto">
+                        <input type="number" id="js-input-segments" class="form-control" aria-describedby="inputSegments" min="3" max="500" value="50">
+                        </div>
+                    </div>
+                    <div class="row g-3 align-items-center mb-3">
+                        <div class="col-auto">
+                        <label for="minSize" class="col-form-label">Min Size</label>
+                        </div>
+                        <div class="col-auto">
+                        <input type="number" id="js-input-minSize" class="form-control" aria-describedby="inputMinSize" min="1" max="1000" value="10">
+                        </div>
+                    </div>
+                    <div class="row g-3 align-items-center mb-3">
+                        <div class="col-auto">
+                        <label for="varianceSize" class="col-form-label">Variance</label>
+                        </div>
+                        <div class="col-auto">
+                        <input type="number" id="js-input-maxSize" class="form-control" aria-describedby="inputMaxSize" min="1" max="1000" value="7">
+                        </div>
+                    </div>
+                    <div class="row g-3 align-items-center mb-3">
+                        <div class="col-auto">
+                        <label for="varianceSize" class="col-form-label">Direction</label>
+                        </div>
+                        <div class="col-auto">
+                            <select id="js-select-direction" class="form-select" aria-label="Default select example">
+                                <option value="0" selected>Random</option>
+                                <option value="-1">CW</option>
+                                <option value="1">CCW</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="collapse mb-3" id="collapseColors">
+                    <div class="row g-3 align-items-center mb-3">
+                        <label for="customRange2" class="form-label">Number of Colors: <span id="js-span-selectedColorsRange"></span> </label>
+                        <input type="range" class="form-range" min="1" max="20" value="20" id="js-range-numberOfColors">
+                    </div>
+                    <div class="row">
+                        <div class="col-8 border p-3" id="js-div-colors" style="overflow-x: hidden; overflow-y: scroll; height: 20rem;">
+                        </div>
+                    </div>
+                </div>
+                
+
+                <div class="btn-group mb-3" role="group" aria-label="Undo Redo Button Group">
+                    <button type="button" class="btn btn-outline-secondary" id="js-btn-undo">Undo</button>
+                    <button type="button" class="btn btn-outline-secondary" id="js-btn-redo">Redo</button>
+                </div>
+                <div class="mb-3">
+                    <button type="button" class="btn btn-outline-primary" id="js-btn-save">Save SVG</button>
+                </div>
+                <div>
+                    <a class="position-fixed text-dark" style="bottom: 1rem; text-decoration: none;" class="github-link" href="https://github.com/gregwattonville/perlin-polka-dots">
+                        <img style="height: 24px;" src="assets/vendor/GitHub-Mark-64px.png" alt="Github Mark Light">
+                        <span>View on GitHub</span>
+                    </a>
+                </div>
+
+        </div>
     </div>
     <main>
         <div class="container-fluid">
@@ -253,6 +275,8 @@
     <script src="assets/scripts/PerlinDotSVG.js"></script>
     <script src="assets/scripts/menuFunctions.js"></script>
     <script src="assets/scripts/perlinDotsScript.js"></script>
+    <script src="assets/scripts/creatorScript.js"></script>
+    <script src="assets/scripts/setupAndEventsScript.js"></script>
     <!-- Menu Toggle Script -->
     <script>
         const wrapper = document.getElementById("sidebar-wrapper");
