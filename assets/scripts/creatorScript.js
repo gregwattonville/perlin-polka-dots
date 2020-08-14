@@ -130,6 +130,10 @@ const createDotsPerlin = () => {
             _perlinDot.minSize = 1;
         }
 
+        // Update number of segments and variance based on new size
+        _perlinDot.calcSegments(_perlinDot.minSize);
+        _perlinDot.calcVariance(_perlinDot.minSize);
+
         // Calc number of columns/dots plus randomness
         // If dot size bigger ADD randomness
         // If dot size smaller SUBTRACT randomness
@@ -174,11 +178,6 @@ const createDotsPerlin = () => {
             }
             console.log("CenterX: ", centerX);
         }
-
-        
-        //_perlinDot.minSize += 1;
-        //_perlinDot.calcSegments(_perlinDot.minSize);
-        //_perlinDot.calcVariance(_perlinDot.minSize);
         
     }
     drawSvg(perlinDotsHtml, true);
