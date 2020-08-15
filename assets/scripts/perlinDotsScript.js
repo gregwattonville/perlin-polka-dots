@@ -169,6 +169,41 @@ const getColorValue = (useRandomColor) => {
     }
 } 
 
+const creatorHandleDotSize = () => {
+    // Calc size plus randomness
+    let randomSizeAdjustment = getRandomIntInclusive(_numberOfMoreRandomSizes, -_numberOfMoreRandomSizes);
+    let dotSize = _creatorOptions.size + randomSizeAdjustment;
+
+    if (dotSize > 0) {
+        _perlinDot.minSize = dotSize;
+    } else {
+        _perlinDot.minSize = 1;
+    }
+
+    // Update number of segments and variance based on new size
+    _perlinDot.calcSegments(_perlinDot.minSize);
+    _perlinDot.calcVariance(_perlinDot.minSize);
+}
+
+const creatorHandleBorderRandomness = () => {
+    let randomDotBorderAdjustment = getRandomInt(_numberOfMoreRandomDotBorder);
+    _perlinDot.maxSize += randomDotBorderAdjustment;
+}
+
+const getAndHandleNumberOfDotsInRow = () => {
+    // Calc number of columns/dots plus randomness
+    // If dot size bigger ADD randomness
+    // If dot size smaller SUBTRACT randomness
+    let randomNumberOfDotsAdjustment = getRandomInt(_numberOfMoreRandomDots);
+    let numberOfDotsInRow = _creatorOptions.numberOfColumns;
+    if ( _perlinDot.minSize < _creatorOptions.size ) {
+        numberOfDotsInRow = numberOfDotsInRow + randomNumberOfDotsAdjustment
+    } else if ( _perlinDot.minSize > _creatorOptions.size ) {
+        numberOfDotsInRow = numberOfDotsInRow - randomNumberOfDotsAdjustment
+    }
+    return numberOfDotsInRow
+}
+
 
 
 
