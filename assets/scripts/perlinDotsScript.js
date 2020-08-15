@@ -22,6 +22,7 @@ let _colorCodes = ['#000000', '#808080', '#ffe119', '#4363d8', '#f58231', '#911e
 const _perlinDot = new PerlinDotSVG();
 _numberOfMoreRandomSizes = null;
 _numberOfMoreRandomDots = null;
+_numberOfMoreRandomDotBorder = null;
 
 
 let _circleColor = document.getElementById("js-input-color").value
@@ -129,6 +130,7 @@ _htmlInputs.drawButton = 'js-btn-draw';
 _htmlInputs.rangeNumberOfColors = document.getElementById("js-range-numberOfColors");
 _htmlInputs.rangeMoreRandomSizes = document.getElementById("js-range-moreRandomSizes");
 _htmlInputs.rangeMoreRandomDots = document.getElementById("js-range-moreRandomDots");
+_htmlInputs.rangeMoreRandomDotBorder = document.getElementById("js-range-moreRandomDotBorder");
 
 
 function drawSvg(svgHtml, updateGlobalHtml = false) {
@@ -170,6 +172,10 @@ const updateMoreRandomDots = (rangeVal) => {
     document.getElementById('js-span-moreRandomDots').innerHTML = rangeVal;
 };
 
+const updateMoreRandomDotBorder = (rangeVal) => {
+    _numberOfMoreRandomDotBorder = parseInt(rangeVal);
+    document.getElementById('js-span-moreRandomDotBorder').innerHTML = rangeVal;
+};
 
 const addDot = (e) => {
     

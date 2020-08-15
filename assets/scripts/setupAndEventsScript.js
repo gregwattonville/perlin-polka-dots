@@ -8,6 +8,7 @@ document.getElementById("js-select-dotStyle").onchange = (e) => { _perlinDot.sty
 _htmlInputs.rangeNumberOfColors.oninput = (e) => { updateColors(e.target.value); };
 _htmlInputs.rangeMoreRandomSizes.oninput = (e) => { updateMoreRandomSizes(e.target.value); };
 _htmlInputs.rangeMoreRandomDots.oninput = (e) => { updateMoreRandomDots(e.target.value); };
+_htmlInputs.rangeMoreRandomDotBorder.oninput = (e) => { updateMoreRandomDotBorder(e.target.value); };
 
 
 document.getElementById("js-btn-create").onclick = createDots;
@@ -19,3 +20,4 @@ setupSvgCanvas(_menuBreakpoint, _svgAspectRatio);
 updateColors(_htmlInputs.rangeNumberOfColors.value);
 updateMoreRandomSizes(_htmlInputs.rangeMoreRandomSizes.value);
 updateMoreRandomDots(_htmlInputs.rangeMoreRandomDots.value);
+updateMoreRandomDotBorder(_htmlInputs.rangeMoreRandomDotBorder.value);

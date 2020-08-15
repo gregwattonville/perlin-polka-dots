@@ -134,6 +134,9 @@ const createDotsPerlin = () => {
         _perlinDot.calcSegments(_perlinDot.minSize);
         _perlinDot.calcVariance(_perlinDot.minSize);
 
+        let randomDotBorderAdjustment = getRandomInt(_numberOfMoreRandomDotBorder);
+        _perlinDot.maxSize += randomDotBorderAdjustment;
+
         // Calc number of columns/dots plus randomness
         // If dot size bigger ADD randomness
         // If dot size smaller SUBTRACT randomness
