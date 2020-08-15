@@ -17,8 +17,10 @@ let _svgWidth = null;
 let _svgHeight = null;
 
 let _creatorOptions = {};
+let _useRandomColors = true;
 let _numberOfColors = null;
 let _colorCodes = ['#000000', '#808080', '#ffe119', '#4363d8', '#f58231', '#911eb4', '#46f0f0', '#f032e6', '#bcf60c', '#fabebe', '#008080', '#e6beff', '#9a6324', '#fffac8', '#800000', '#aaffc3', '#808000', '#ffd8b1', '#000075', '#808080', '#000000', '#F5F5F5'];
+let _copyOfColorCodes = null;
 const _perlinDot = new PerlinDotSVG();
 _numberOfMoreRandomSizes = null;
 _numberOfMoreRandomDots = null;
@@ -32,7 +34,7 @@ const getRandomInt = (max) => {
     return Math.floor(Math.random() * Math.floor(max));
 };
 
-function getRandomIntInclusive(min, max) {
+const getRandomIntInclusive = (min, max) => {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
@@ -82,11 +84,7 @@ const configSvgDimensions = (width, height, breakpoint, aspectRatio) => {
     }
 }
 
-const clearSvg = () => {
-    _svgDotsHtml = '';
-    _svgDotsHtmlList = [];
-    _svg.innerHTML = '';
-}
+
 
 const updateGeneralOptions = () => {
     const box = _svg.viewBox.baseVal;
@@ -122,60 +120,12 @@ const updateColorOptions = () => {
 }
 
 
-
-
-// HTML inputs id's
-let _htmlInputs = {};
-_htmlInputs.drawButton = 'js-btn-draw';
-_htmlInputs.rangeNumberOfColors = document.getElementById("js-range-numberOfColors");
-_htmlInputs.rangeMoreRandomSizes = document.getElementById("js-range-moreRandomSizes");
-_htmlInputs.rangeMoreRandomDots = document.getElementById("js-range-moreRandomDots");
-_htmlInputs.rangeMoreRandomDotBorder = document.getElementById("js-range-moreRandomDotBorder");
-
-
-function drawSvg(svgHtml, updateGlobalHtml = false) {
+const drawSvg = (svgHtml, updateGlobalHtml = false) => {
     if(updateGlobalHtml) {
         _svgDotsHtml = svgHtml
     }
     _svg.innerHTML = svgHtml;
 }
-
-
-const updateColors = (rangeVal) => {
-    _numberOfColors = rangeVal;
-    document.getElementById('js-span-selectedColorsRange').innerHTML = rangeVal;
-    const aColor = '#e6194b';
-    let colorsHtml = '';
-    for (let i = 0; i < rangeVal; i++) {
-        //const element = array[i];
-        const colorSelectHtml = `<div class="row g-3 align-items-center mb-3">
-                        <div class="col-auto">
-                            <label for="inputColorInput" class="form-label">Color ${i+1}</label>
-                        </div>
-                        <div class="col-auto" style="min-width: 64px;">
-                            <input type="color" class="form-control form-control-color" id="js-input-color-${i}" value="${_colorCodes[i]}" title="Choose your color">
-                        </div>
-                    </div>`;
-        colorsHtml += colorSelectHtml;
-    }
-    _colorsDiv.innerHTML = colorsHtml;
-    
-};
-
-const updateMoreRandomSizes = (rangeVal) => {
-    _numberOfMoreRandomSizes = parseInt(rangeVal);
-    document.getElementById('js-span-moreRandomSizes').innerHTML = rangeVal;
-};
-
-const updateMoreRandomDots = (rangeVal) => {
-    _numberOfMoreRandomDots = parseInt(rangeVal);
-    document.getElementById('js-span-moreRandomDots').innerHTML = rangeVal;
-};
-
-const updateMoreRandomDotBorder = (rangeVal) => {
-    _numberOfMoreRandomDotBorder = parseInt(rangeVal);
-    document.getElementById('js-span-moreRandomDotBorder').innerHTML = rangeVal;
-};
 
 const addDot = (e) => {
     
@@ -195,6 +145,29 @@ const addDot = (e) => {
 
     drawSvg(_svgDotsHtml);
 }
+
+const getColorValue = (useRandomColor) => {
+
+    // if copyOfColors array has not been initialized or is out of colors re-copy source array
+    if (!_copyOfColorCodes || !_copyOfColorCodes.length) {
+        _copyOfColorCodes = _colorCodes.slice(0, _numberOfColors);
+    }
+
+    if (useRandomColor) {
+
+        const randomColorIndex = getRandomInt(_copyOfColorCodes.length);
+        const randomColor = _copyOfColorCodes[randomColorIndex];
+        _copyOfColorCodes.splice(randomColorIndex, 1);
+        return randomColor;
+
+    } else {
+
+        const color = _copyOfColorCodes[0];
+        _copyOfColorCodes.splice(0, 1);
+        return color;
+
+    }
+} 
 
 
 

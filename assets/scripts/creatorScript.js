@@ -115,7 +115,7 @@ const createDotsPerlin = () => {
 
     const centerShiftY = Math.round( (_svgHeight - 2*_creatorOptions.padding)/_creatorOptions.numberOfRows );
 
-    let copyOfColorArr = _colorCodes.slice(0, _numberOfColors);
+    
 
     let perlinDotsHtml = '';
 
@@ -159,15 +159,10 @@ const createDotsPerlin = () => {
         } else { // X Right
             centerX = parseInt(Math.round( _svgWidth - _creatorOptions.padding/2 - centerShiftX/2 + random(centerShiftX*shiftPercent*-1, centerShiftX*shiftPercent) ));
         }
-        console.log("CenterX Start: ", centerX);         
-        // if out of colors recopy source array
-        if(!copyOfColorArr.length) {
-            copyOfColorArr = _colorCodes.slice(0, _numberOfColors);
-        }
-        let randomColorIndex = getRandomInt(copyOfColorArr.length);
-        _perlinDot.fillColor = copyOfColorArr[randomColorIndex]; 
-        copyOfColorArr.splice(randomColorIndex, 1);
-        console.log(copyOfColorArr);
+        
+        let colorCode = getColorValue(_useRandomColors);
+        _perlinDot.fillColor = colorCode; 
+        
         for (let j = 0; j < numberOfDotsInRow; j++) {
             const n = noise(count);
             const dotHtml = _perlinDot.render(centerX, centerY+25*n-25, _perlinDot.direction);
@@ -179,7 +174,6 @@ const createDotsPerlin = () => {
             } else { // Right to left
                 centerX -= centerShiftX - parseInt( Math.round( random(centerShiftX*shiftPercent*-1, centerShiftX*shiftPercent) ) - paddingAdjustment);
             }
-            console.log("CenterX: ", centerX);
         }
         
     }
