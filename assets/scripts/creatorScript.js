@@ -33,13 +33,14 @@ const createDots = () => {
         for (let j = 0; j < numberOfDotsInRow; j++) {
             const dotHtml = _perlinDot.render(centerX, centerY, _perlinDot.direction);
             _svgDotsHtmlList.push(dotHtml);
+            _svgDotsHtmlListHistory.push(dotHtml);
             perlinDotsHtml += dotHtml;
             count += 1;
             centerX += centerShiftX + parseInt( Math.round( random(centerShiftX*shiftPercent*-1, centerShiftX*shiftPercent) ) - paddingAdjustment) ;
         }
         
     }
-    drawSvg(perlinDotsHtml , true);
+    drawSvg(perlinDotsHtml, true);
 
 };
 
@@ -77,27 +78,28 @@ const createDotsRandom = () => {
         xSpacing = widthMinusPadding / numberOfDotsInRow;
 
         _perlinDot.fillColor = getColorValue(_useRandomColors); 
-        
+
         for (let j = 0; j < numberOfDotsInRow; j++) { 
            
-           const minX = xStart + j*xSpacing; 
-           const maxX = xStart + (j+1)*xSpacing;
-           centerX = getRandomIntInclusive( minX, maxX );
+            const minX = xStart + j*xSpacing; 
+            const maxX = xStart + (j+1)*xSpacing;
+            centerX = getRandomIntInclusive( minX, maxX );
 
-           const dotHtml = _perlinDot.render(centerX, centerY, _perlinDot.direction);
+            const dotHtml = _perlinDot.render(centerX, centerY, _perlinDot.direction);
 
-           count += 1;
-           _svgDotsHtmlList.push(dotHtml);
+            count += 1;
+            _svgDotsHtmlList.push(dotHtml);
+            _svgDotsHtmlListHistory.push(dotHtml);
             perlinDotsHtml += dotHtml;
         }
         
     }
-    drawSvg(perlinDotsHtml , true);
+    drawSvg(perlinDotsHtml, true);
 
 };
 
 const createDotsPerlin = () => {
-
+    clearSvg();
     updateGeneralOptions();
     //updateDotOptions();  
     updateCreatorOptions();
@@ -144,6 +146,7 @@ const createDotsPerlin = () => {
             const n = noise(count);
             const dotHtml = _perlinDot.render(centerX, centerY+25*n-25, _perlinDot.direction);
             _svgDotsHtmlList.push(dotHtml);
+            _svgDotsHtmlListHistory.push(dotHtml);
             perlinDotsHtml += dotHtml;
             count += 1;
             if (!(i%2)) { // Left to right

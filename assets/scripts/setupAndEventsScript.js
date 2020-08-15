@@ -1,6 +1,7 @@
 document.getElementById("js-svg").onclick = addDot;
 document.getElementById("js-btn-undo").onclick = (e) => { undoDraw(_svgDotsHtmlList, _svgDotsHtmlListUndo, drawSvg); };
 document.getElementById("js-btn-redo").onclick = (e) => { redoDraw(_svgDotsHtmlList, _svgDotsHtmlListUndo, drawSvg); };
+document.getElementById("js-btn-drawHistory").onclick = (e) => { drawSvgHistory(); };
 document.getElementById("js-btn-save").onclick = (e) => { saveSVG(_svg); };
 document.getElementById("js-btn-clear").onclick = clearSvg;
 document.getElementById("js-select-aspectRatio").onchange = (e) => { setupSvgCanvas(_menuBreakpoint, e.target.value); };

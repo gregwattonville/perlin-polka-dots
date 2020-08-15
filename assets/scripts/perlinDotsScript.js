@@ -12,6 +12,7 @@ const _pt = _svg.createSVGPoint();  // Created once for document
 let _svgDotsHtml = '';
 let _svgDotsHtmlList = [];
 let _svgDotsHtmlListUndo = [];
+let _svgDotsHtmlListHistory = [];
 let _svgAspectRatio = '1.6';
 let _svgWidth = null;
 let _svgHeight = null;
@@ -127,6 +128,12 @@ const drawSvg = (svgHtml, updateGlobalHtml = false) => {
     _svg.innerHTML = svgHtml;
 }
 
+const drawSvgHistory = () => {
+    clearSvg();
+    _svgDotsHtmlList = _svgDotsHtmlListHistory.slice();
+    _svg.innerHTML = _svgDotsHtmlListHistory.join('');
+}
+
 const addDot = (e) => {
     
     updateDotOptions();
@@ -141,6 +148,7 @@ const addDot = (e) => {
     const circleHtml = _perlinDot.render(cursorpt.x, cursorpt.y, _perlinDot.direction);
 
     _svgDotsHtmlList.push(circleHtml);
+    _svgDotsHtmlListHistory.push(circleHtml);
     _svgDotsHtml += circleHtml;
 
     drawSvg(_svgDotsHtml);
