@@ -1,6 +1,6 @@
 # [perlin-polka-dots](https://gregwattonville.github.io/perlin-polka-dots/)
 
-![Perlin Polka Dots](assets/images/perlinPolkaDots.png)
+![Perlin Polka Dots](assets/images/perlinPolkaDots.jpg)
 
 ## About
 
